@@ -11,6 +11,7 @@ import { useStore } from '../hooks/useStore';
 import { StoreProvider } from '../context/storeContext';
 import Cart from '../pages/Cart';
 import DetailProduct from '../pages/DetailProduct';
+import Pagination from '../pages/Pagination';
 
 export default function Routers() {
   const authValue = useAuth();
@@ -24,6 +25,7 @@ export default function Routers() {
             <Routes>
               <Route element={<NonRequireAuthentication />}>
                 <Route path="/" element={<Auth />} />
+                <Route path="/pagination" element={<Pagination />} />
               </Route>
 
               <Route element={<RequireAuthentication />}>

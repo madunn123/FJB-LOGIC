@@ -1,4 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import {
+  useContext,
+} from 'react';
 
 import FormAuth from '../components/auth/FormAuth';
 import AuthContext from '../context/authContext';
@@ -13,32 +15,6 @@ export default function Auth() {
     handleLogin,
     state,
   } = useContext(AuthContext);
-
-  const [textInput, setTextInput] = useState({
-    email: '',
-    password: '',
-  });
-
-  const handleChangeTextInput = (e) => setTextInput({
-    ...textInput,
-    [e.target.name]: e.target.value,
-  });
-
-  useEffect(() => {
-    if (changeTabs === 'login' || changeTabs === 'register') {
-      setTextInput({
-        email: '',
-        password: '',
-      });
-    }
-  }, [changeTabs]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (changeTabs === 'login') handleLogin(textInput);
-    if (changeTabs === 'register') handleRegister(textInput);
-  };
 
   return (
     <section className="container flex items-center justify-center h-full mx-auto group">
@@ -76,11 +52,9 @@ export default function Auth() {
             buttonName="login"
             tabs={changeTabs}
             visible={visible}
-            textInput={textInput}
-            handleChangeTextInput={handleChangeTextInput}
             handleVisible={handleVisible}
-            handleSubmit={handleSubmit}
             loading={state.loading}
+            handleLogin={handleLogin}
           />
           )}
 
@@ -91,11 +65,9 @@ export default function Auth() {
             buttonName="register"
             tabs={changeTabs}
             visible={visible}
-            textInput={textInput}
-            handleChangeTextInput={handleChangeTextInput}
             handleVisible={handleVisible}
-            handleSubmit={handleSubmit}
             loading={state.loading}
+            handleRegister={handleRegister}
           />
           )}
         </div>

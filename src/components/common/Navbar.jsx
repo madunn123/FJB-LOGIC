@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import {
   TbListSearch, TbMessage, TbNotification, TbShoppingBag,
@@ -17,16 +17,26 @@ export default function Navbar() {
     const newInput = e.target.value;
 
     setKeyword(newInput);
-
-    if (keyword.length > 0) {
-      setSearchParams({ q: keyword });
-    } else {
-      const params = new URLSearchParams(searchParams);
-      params.delete('q');
-
-      setSearchParams(params);
-    }
   };
+
+  useEffect(() => {
+    let ignore = true;
+
+    if (ignore) {
+      if (keyword.length > 0) {
+        setSearchParams({ q: keyword });
+      } else {
+        const params = new URLSearchParams(searchParams);
+        params.delete('q');
+
+        setSearchParams(params);
+      }
+    }
+
+    return () => {
+      ignore = false;
+    };
+  }, [keyword]);
 
   return (
     <nav className="group">

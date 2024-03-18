@@ -17,3 +17,12 @@ export const getToLocalStorage = (key = '') => {
 };
 
 export const usdCurrency = (amount) => amount?.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
+export const createConnection = () => ({
+  connect() {
+    console.log('connecting');
+  },
+  disconnect() {
+    console.log('disconected');
+  },
+});

@@ -1,12 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   TbUserHexagon, TbEyeCancel, TbEye, TbLivePhoto,
 } from 'react-icons/tb';
 
 export default function FormAuth({
-  visible, formName, buttonName, textInput, handleVisible, handleChangeTextInput, handleSubmit, loading,
+  visible, formName, buttonName, handleVisible, loading, tabs, handleLogin, handleRegister,
 }) {
+  const [textInput, setTextInput] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleChangeTextInput = (e) => setTextInput({
+    ...textInput,
+    [e.target.name]: e.target.value,
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (tabs === 'login') handleLogin(textInput);
+    if (tabs === 'register') handleRegister(textInput);
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <h1 className="m-0 text-xl font-semibold uppercase duration-500 group-hover:text-green-500">
@@ -54,7 +71,7 @@ export default function FormAuth({
           type="submit"
           className="p-2 px-3 text-sm font-semibold uppercase duration-500 rounded-sm ring-1 ring-slate-600 hover:ring-green-500 hover:text-green-500 xl:mt-3"
         >
-          {loading ? <TbLivePhoto className="w-5 h-5 mx-auto animate-bounce" /> : buttonName}
+          {loading ? <TbLivePhoto className="w-5 h-5 mx-auto animate-spin" /> : buttonName}
         </button>
       </form>
     </div>
